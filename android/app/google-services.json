@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "779676222833",
+    "project_id": "safehome-bcb20",
+    "storage_bucket": "safehome-bcb20.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779676222833:android:f377a621ee72d3fe8da2d0",
+        "android_client_info": {
+          "package_name": "com.company.safehome"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQdcfhdZJKiaDHuVcs77SCox06eE1O9A0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779676222833:android:13be162ccc265e2f8da2d0",
+        "android_client_info": {
+          "package_name": "com.example.safehome"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQdcfhdZJKiaDHuVcs77SCox06eE1O9A0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
