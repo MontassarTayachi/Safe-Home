@@ -11,15 +11,21 @@ class PushNotificationsServices {
   static Future init() async {
     await messaging.requestPermission();
     String? token = await messaging.getToken();
-    if (token != null) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('fcm_token', token);
-    }
     log('Push Notifications Token: $token');
     FirebaseMessaging.onBackgroundMessage(handlerBackgroundMessage);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       LocalNotificationService.showBasicNotification(message);
     });
+  }
+
+  static connecte() async {
+    messaging.subscribeToTopic('all');
+    String? token = await messaging.getToken();
+    if (token != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('fcm_token', token);
+    }
+    log('Push Notifications Token: $token');
   }
 
   static Future<void> handlerBackgroundMessage(RemoteMessage message) async {

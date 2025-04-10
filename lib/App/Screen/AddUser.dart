@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:safehome/services/push_notifications_services.dart';
 
 class AddUser extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
@@ -23,7 +24,7 @@ class AddUser extends StatelessWidget {
     }
 
     final url = Uri.parse(
-        'http://192.168.1.21:3000/users'); // Remplace par l’URL de ton API
+        'http://10.10.0.200:3000/users'); // Remplace par l’URL de ton API
 
     final response = await http.post(
       url,
@@ -38,6 +39,7 @@ class AddUser extends StatelessWidget {
     if (response.statusCode == 201) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isConnected', true);
+      PushNotificationsServices.connecte();
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Utilisateur ajouté avec succès')),
