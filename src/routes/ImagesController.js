@@ -29,26 +29,22 @@ router.post('/', upload.single('image'), async (req, res) => {
 
         // Préparation du message Firebase
         //select seulemment les tokens de la base de données
+        const message = {
+            notification: {
+              title: '📸 Nouvelle Image',
+              body: 'Une nouvelle image vient d\'être ajoutée.',
+              image: imageUrl,
+            },
+            topic: 'all',
+          };
+      
         
-        const Tokes = await Users.find({}, { token: 1, _id: 0 });
-        
-        Tokes.forEach(async (token) => {
-            const message = {
-                notification: {
-                    title: 'SafeHome Notification',
-                    body: 'See your app, there is a new image',
-                    image: imageUrl,
-                },
-                token: token.token,
-            };
             const response = await admin.messaging().send(message);
-            console.log('✅ Notification envoyée avec succès:', response);
-        }
-        );
-              
+           
         return res.status(201).json({
             message: 'Image ajoutée avec succès',
             image,
+            response,
             notificationResponse: 'Toutes les notifications ont été envoyées avec succès',
         });
 
@@ -58,7 +54,19 @@ router.post('/', upload.single('image'), async (req, res) => {
     }
 });
 
-// Récupérer toutes les images
+router.get('/last', async (req, res) => {
+    try {
+        const lastImage = await Images.findOne().sort({ _id: -1 });
+        if (!lastImage) {
+            return res.status(404).json({ error: 'Aucune image trouvée' });
+        }
+        return res.status(200).json(lastImage);
+    } catch (err) {
+        console.error('❌ Erreur :', err);
+        return res.status(500).json({ error: err.message });
+    }
+});
+
 router.get('/', async (req, res) => {
     try {
         const allImages = await Images.find();
